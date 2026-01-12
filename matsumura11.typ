@@ -6,13 +6,66 @@
 #set par(leading: 0.8em)
 #show link: underline
 #show link: set text(fill: blue)
+#import "@preview/scienceicons:0.1.0": *
+#import "@preview/hydra:0.6.2": hydra
+#import "@preview/showybox:2.0.4": *
+#let current-chapter = state("chapter", "")
+#let bg-color = rgb("#ffffff")
 #set page(
+  fill: bg-color,
   numbering: "1 / 1",
   paper: "a4",
-  footer: rect(width: 100%, height: 100%, stroke: (top: 1pt))[
-    #link(<outline>)[目次へジャンプ] #h(1fr) #context[#counter(page).display("— 1/1 —", both: true)] #h(1fr) \@Riley
+  header: context [
+    #let page-num = counter(page).get().last()
+    #if page-num > 1 [
+      #rect(width: 100%, height: 100%, stroke: (bottom: 1pt))[
+        #grid(
+          columns: (1fr, 1fr, 1fr),
+          align(left)[#hydra(1, skip-starting: false)], 
+          align(center)[],
+          align(right)[#link("https://github.com/Riley719/matsumura11")[#github-icon() ノート置き場]]
+        )
+      ]
+    ]
+  ],
+  footer: context [
+    #let page-num = counter(page).get().last()
+    #if page-num > 1 [
+      #rect(width: 100%, height: 100%, stroke: (top: 1pt))[
+        #grid(
+          columns: (1fr, 1fr, 1fr),
+          align(left)[#link(<outline>)[目次へジャンプ]], 
+          align(center)[#counter(page).display("— 1/1 —", both: true)],
+          align(right)[\@Riley]
+        )
+      ]
+    ]
   ]
 )
+
+#import "@preview/showybox:2.0.3": showybox
+
+#let becausebox(body) = showybox(
+  frame: (
+    border-color: blue,
+    radius: 8pt,
+    thickness: 1pt,
+  ),
+  [
+    // 本文の冒頭にアイコンをインラインで配置
+    #box(baseline: 25%, circle(radius: 0.8em, stroke: 1pt + blue)[
+      #set align(center + horizon)
+      #text(fill: blue, size: 1.6em)[$because$]
+    ])
+    #h(0.1em) // アイコンと本文の間のスペース
+    #body
+  ]
+)
+
+#show heading.where(level: 1): it => {
+    current-chapter.update(it.body)  // 状態を更新
+    it  // 見出しをそのまま表示
+}
 #set par(justify: true)
 #let title = "松村可換環論11章ノート"
 #show title: set align(center)
@@ -128,6 +181,8 @@
   caption: [松村 英之 \ https://opc.mfo.de/detail?photo_id=11895&would_like_to_publish=1 より]
 )
 
+#pagebreak()
+
 #show outline: set text(fill: blue)
 #set outline.entry(
   fill: text(fill: black)[#repeat([$dot$], gap: 0.1em)]
@@ -151,7 +206,7 @@
 #align(center, diagram({
 	node((3, 5), [$"RLR"$])
 	node((3, 4), [$"HS"$])
-	node((3, 3), [$"C.T."$])
+	node((3, 3), [$"C.I."$])
 	node((3, 2), [$"Gor"$])
 	node((3, 1), [$"CTR"$])
 	node((3, 0), [$"CM"$])
@@ -161,7 +216,7 @@
 	node((1, -2), [$"formally catenary"$])
 	node((3, -2), [$"equi dimensional"$])
 	node((2, -3), [$"catenary"$])
-	node((4, 1), [#link("https://arxiv.org/pdf/2506.17987")[new!]])
+	node((4, 1), [#link("https://arxiv.org/pdf/2506.17987")[#arxiv-icon() new!]])
 	edge((3, 5), (3, 4), "=>")
 	edge((3, 4), (3, 3), "=>")
 	edge((3, 3), (3, 2), "=>")
@@ -178,7 +233,7 @@
 	edge((2, -2), (1, -2), [$"Th 31.7"$], label-side: left, shift: 0.15, "=>")
 }))
 
-本章ではこのヒエラルキーの，主にunmixedから上のわちゃわちゃした部分を扱う．#text(red)[ただし，これらに触れることが目標であり，詳細な証明に立ち入ると内容が脱線するため，多くの証明は省略することにする．]面倒な部分は適切に飛ばそうということで，テキトーに進むというわけではない．多分．
+本セクションではこのヒエラルキーの，主にunmixedから上のわちゃわちゃした部分を扱う．#text(red)[ただし，これらに触れることが目標であり，詳細な証明に立ち入ると内容が脱線するため，多くの証明は省略することにする．]面倒な部分は適切に飛ばそうということで，テキトーに進むというわけではない．多分．
 
 #pagebreak()
 
@@ -239,8 +294,11 @@ catenaryの場合は，この有限個というのが0個を意味すること�
   box-label: "31.3",
   number: true
 )[
-  $A$をネーター環とする．$frak(p) subset P$を素イデアルとして，$ht(frak(p)) = h > 0, quad, ht(P\/frak(p)) = d > 0$ とする．このとき$0 <= i < d$をみたす各$i$に対し次の集合は無限酒豪である．
+  $A$をネーター環とする．$frak(p) subset P$を素イデアルとして，$ht(frak(p)) = h > 0, quad, ht(P\/frak(p)) = d > 0$ とする．このとき$0 <= i < d$をみたす各$i$に対し次の集合は無限集合である．
   $
-    { frak(p)' in Spec(frak(p)') mid(|) frak(p)' subset P, quad ht(P\/frak(p)') = d - i, quad ht frak(p)' = h+1}
-  $ 
+    { frak(p)' in Spec(frak(p)') mid(|) frak(p)' subset P, quad ht(P\/frak(p)') = d - i, quad ht frak(p)' = h+i}
+  $
+]
+#pfsp[
+  omit
 ]
