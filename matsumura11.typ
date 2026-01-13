@@ -105,6 +105,7 @@
 #let Max = "Max"
 #let Hom = "Hom"
 #let ht = "ht"
+#let coht = "coht" 
 #set math.mat(delim: "[")
 
 #import "@preview/statementsp:0.1.1": *
@@ -197,9 +198,9 @@
 #counter(heading).update(30)
 
 = 素イデアル鎖
-この章の目標は，主に次のネーター局所環に関する性質のヒエラルキーを知り，理解することである．下に行くほど強い性質であり，unmixed以下はすでに11章以前に書いてある．
+この章の目標は，主に次のネーター局所環に関する性質のヒエラルキーを知り，理解することである．下に行くほど強い性質であり，unmixed以下はすでに11章以前に書いてある．ちなみにこの図で遊びたい場合は#link("https://q.uiver.app/#r=typst&q=WzAsMTMsWzIsOCwiXCJSTFJcIiJdLFsyLDcsIlwiSFNcIiJdLFsyLDYsIlwiQy5ULlwiIl0sWzIsNSwiXCJHb3JcIiJdLFsyLDQsIlwiQ1RSXCIiXSxbMiwzLCJcIkNNXCIiXSxbMSwzLCJcInVubWl4ZWRcIiJdLFsxLDIsIlwicXVhc2ktdW5taXhlZFwiIl0sWzEsMSwiXCJ1bml2IGNhdGVuYXJ5XCIiXSxbMCwxLCJcImZvcm1hbGx5IGNhdGVuYXJ5XCIiXSxbMiwxLCJcImVxdWkgZGltZW5zaW9uYWxcIiJdLFsxLDAsIlwiY2F0ZW5hcnlcIiJdLFszLDQsIlwibmV3IVwiIl0sWzAsMSwiIiwwLHsibGV2ZWwiOjJ9XSxbMSwyLCIiLDAseyJsZXZlbCI6Mn1dLFsyLDMsIiIsMCx7ImxldmVsIjoyfV0sWzMsNCwiIiwwLHsibGV2ZWwiOjJ9XSxbNCw1LCIiLDAseyJsZXZlbCI6Mn1dLFs2LDUsIlwiVGggMTcuNlwiIiwyLHsibGV2ZWwiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dLFs2LDcsIlwiVGggMTcuMlwiIiwyLHsibGV2ZWwiOjJ9XSxbNyw4LCJcIlRoIDMxLjZcIiIsMix7ImxldmVsIjoyfV0sWzcsMTAsIlwiVGggMzEuNlwiIiwyLHsibGV2ZWwiOjJ9XSxbOCw5LCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn19fV0sWzgsMTEsIlwiY2xlYXJcIiIsMix7ImxldmVsIjoyfV0sWzEyLDQsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XSxbOSw4LCJcIlRoIDMxLjZcIiIsMCx7Im9mZnNldCI6LTMsImxldmVsIjoyfV0sWzgsOSwiXCJUaCAzMS43XCIiLDAseyJvZmZzZXQiOi0zLCJsZXZlbCI6Mn1dXQ==")[ここ]にソースを置いたのでどうぞ．
 
-#v(3em)
+#v(1em)
 
 #import "@preview/fletcher:0.5.8": *
 
@@ -212,9 +213,9 @@
 	node((3, 0), [$"CM"$])
 	node((2, 0), [$"unmixed"$])
 	node((2, -1), [$"quasi-unmixed"$])
-	node((2, -2), [$"univ catenary"$])
+	node((2, -2), [$"universally catenary"$])
 	node((1, -2), [$"formally catenary"$])
-	node((3, -2), [$"equi dimensional"$])
+	node((3, -2), [$"equidimensional"$])
 	node((2, -3), [$"catenary"$])
 	node((4, 1), [#link("https://arxiv.org/pdf/2506.17987")[#arxiv-icon() new!]])
 	edge((3, 5), (3, 4), "=>")
@@ -224,16 +225,20 @@
 	edge((3, 1), (3, 0), "=>")
 	edge((2, 0), (3, 0), [$"Th 17.6"$], label-side: right, "<=>")
 	edge((2, 0), (2, -1), [$"Th 17.2"$], label-side: right, "=>")
-	edge((2, -1), (2, -2), [$"Th 31.6"$], label-side: right, "=>")
-	edge((2, -1), (3, -2), [$"Th 31.6"$], label-side: right, "=>")
+	edge((2, -1), (2, -2), [#linksp(<th:31.6>)], label-side: right, "=>")
+	edge((2, -1), (3, -2), [#linksp(<th:31.6>)], label-side: right, "=>")
 	edge((2, -2), (1, -2), "<=>")
 	edge((2, -2), (2, -3), [$"clear"$], label-side: right, "=>")
 	edge((4, 1), (3, 1), "->")
-	edge((1, -2), (2, -2), [$"Th 31.6"$], label-side: left, shift: 0.15, "=>")
-	edge((2, -2), (1, -2), [$"Th 31.7"$], label-side: left, shift: 0.15, "=>")
-}))
+	edge((1, -2), (2, -2), [#linksp(<th:31.6>)], label-side: left, shift: 0.15, "=>")
+	edge((2, -2), (1, -2), [#linksp(<th:31.7>)], label-side: left, shift: 0.15, "=>")
+}))#label("diagram")
+
+#v(1em)
 
 本セクションではこのヒエラルキーの，主にunmixedから上のわちゃわちゃした部分を扱う．#text(red)[ただし，これらに触れることが目標であり，詳細な証明に立ち入ると内容が脱線するため，多くの証明は省略することにする．]面倒な部分は適切に飛ばそうということで，テキトーに進むというわけではない．多分．
+
+ちなみに，CMとGorの間に挟まる環を探す試みが最近は主流である．Gorに関してはquasi-Gor, nearly-Gor, almost-Gor, weakly-Gor, approximately-Gorなどが知られていた．しかし，完備化や多項式環との同値性が崩れたり，低次元ではほとんど意味のない概念だったりした．そこで最近CTR環が宮崎先生により発見された．これは結構うまくいっていると思う．
 
 #pagebreak()
 
@@ -302,3 +307,132 @@ catenaryの場合は，この有限個というのが0個を意味すること�
 #pfsp[
   omit
 ]
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "31.4",
+  number: true
+)[
+  $(A, frak(m))$をネーター局所整域とする．このとき$A$がcatenaryであることと，すべての素イデアル$frak(p)$に対し，$ht(frak(p)) + coht(frak(p)) = dim(A)$を満たすことは同値である．
+]
+#pfsp[
+  omit
+]
+
+ちなみに上の定理で整域としているのは，$(0)$がただ一つの極小素イデアルであることを使いたいからである．一般にネーター局所環では複数の極小素イデアルがあるが，どの極小素イデアルを選ぶかでcohtが変わってしまうかもしれない．それがすべて一致していたらうれしいわけである．そこで次の定義が出てくる．
+
+#statementsp(
+  box-name: "def",
+  number: false
+)[
+  $dim(A) < infinity$なる環$A$に対して，すべての極小素イデアル$frak(p)$が$dim(A\/frak(p)) = dim(A)$をみたすとき，$A$はequidimensionalであるという．
+]
+
+次の補題 2も使っていない気がするので省略する．
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "31.5",
+  number: true
+)[
+  $A,B$をネーター局所環．$A -> B$を局所環の射とする．$B$が$A$上flatでequidimensionalでcatenaryであれば，$A$もそうである．さらに$forall frak(p) in Spec(A)$に対して$B\/frak(p)B$もequidimensionalである．
+]
+#pfsp[
+  omit
+]
+
+証明では同書籍の定理15.1を使うのでそちらも参照されたい．
+
+ところで，局所環の射がflatならば自動的にfaithfully flatである．(定理 7.3)したがって上の定理ではfaithfully flatを想定することになる．一般にfaithfully flat $A -> B$において，$B$が持つ性質が$A$にも伝播するとき，その性質はdescentするという．例えばネーター性は忠実平坦降下，faithfully flat descentする．上の定理はequidimensionalityとcatenary性がfaithfully flat descentすることを言っている．
+
+#statementsp(
+  box-name: "cor",
+  box-title: "",
+  number: false
+)[
+  $A$は正則局所環$R$の準同型像である局所環とする．このとき完備化$A^*$がequidimensionalならば，$A$もequidimensionalである．
+]
+#pfsp[
+  omit
+]
+
+上の系でネーター性は勝手についてくるのでわざわざ述べていない．また，この系から次の定義が出てくる．
+
+#statementsp(
+  box-name: "def",
+  number: false
+)[
+  ネーター局所環$A$において，完備化$A^*$がequidimensionalならば，$A$はquasi-unmixedであるという．
+]
+
+ちなみにquasi-unmixedは別名formally equidimensionalである．この名称からしてunmixedならばquasi-unmixedであることが期待される．unmixedというのはCM環であることと同値なので（定理 17.6）CM環はquasi-unmixedか？という話である．CM環は完備化してもCM環なので，CM環がequidimensionalであることを示せれば，unmixedならばquasi-unmixedであることが従う．これは定理 17.3の(i)で述べられている．
+
+冒頭のヒエラルキーの正当化に大きくかかわるのが次の定理である．
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "31.6",
+  number: true
+)[
+  $(A,frak(m))$をquasi-unmixedなネーター局所環とする．このとき次が成り立つ．
+  
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$forall frak(p) in Spec(A)$に対して$A_(frak(p))$もquasi-unmixedである．],
+    enum.item(2)[$A$のイデアル$I$に対して$A\/I$がequidimensionalであることとquasi-unmixedであることは同値である．],
+    enum.item(3)[$B$がessentially of finite type over $A$である局所環でequidimensionalであれば，$B$もquasi-unmixedである．],
+    enum.item(4)[$A$はuniversally catenaryである．]
+    )
+]
+#pfsp[
+  omit
+]
+
+essentially of finite type over $A$とは，$A$上有限生成な可換環の局所化であることを言う．例えば明らかなことだが，多項式環$A[x_1, dots, x_n]$の任意の極大イデアルで局所化したものはessentially of finite type over $A$である．
+
+ところで，EGAにはquasi-unmixedを用いて，次のformally catenaryの概念が導入された．
+
+#statementsp(
+  box-name: "def",
+  number: false
+)[
+  ネーター局所環$A$に対して，すべての素イデアル$frak(p)$に対して$A\/frak(p)$がquasi-unmixedならば，$A$はformally catenaryであるという．
+]
+
+formally catenaryならばuniversally catenaryであることは，次のようにして示せる．
+#becausebox[
+  次を示せばいい．
+  $
+    forall frak(p) in min(A), A\/frak(p): "universally catenary" <==> A: "universally catenary"
+  $
+  $<==$は自明．$==>$について示す．$S$を$A$上有限生成な代数とする．任意の$S$の極小素イデアル$frak(q)$に対して$S\/frak(q)$がcatenaryなこと示せばいい．$frak(q) inter A supset frak(p)$となる$A$の極小素イデアル$frak(p)$をとる．すると，剰余環の普遍性により次の可換図式を得る．
+  #align(center, diagram({
+	node((-1, -1), [$A[X]$])
+	node((1, -1), [$S\/frak(q)$])
+	node((0, 0), [$A\/frak(p)[X]$])
+	edge((-1, -1), (1, -1), "->>")
+	edge((-1, -1), (0, 0), "->>")
+	edge((0, 0), (1, -1), "-->")
+  }))
+  （図のソースは#link("https://q.uiver.app/#r=typst&q=WzAsMyxbMCwwLCJBW1hdIl0sWzIsMCwiU1xcL2ZyYWsocSkiXSxbMSwxLCJBXFwvZnJhayhwKVtYXSJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFswLDIsIiIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDEsIiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDIsImFycm93LmNjdyIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMH0sImxldmVsIjoxLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=")[こちら]）
+  ゆえに$S$はcatenaryである．
+]
+
+しかし，EGAでこの概念を導入後，Ratliffがこの逆も成立することを示した．すなわち，次が成り立つ．
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "31.7",
+  number: true
+)[
+  ネーター局所環$A$がuniversally catenaryであることとformally catenaryであることは同値である．
+]
+#pfsp[
+  omit
+]
+
+ここでいまいちど#link(<diagram>)[冒頭のヒエラルキー]に戻って鑑賞すると面白い．
