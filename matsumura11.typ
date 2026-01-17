@@ -11,6 +11,7 @@
 #import "@preview/showybox:2.0.4": *
 #let current-chapter = state("chapter", "")
 #let bg-color = rgb("#ffffff")
+
 #set page(
   fill: bg-color,
   numbering: "1 / 1",
@@ -106,6 +107,8 @@
 #let Hom = "Hom"
 #let ht = "ht"
 #let coht = "coht" 
+#let tensor = $times.o$
+#let gldim = "gl.dim"
 #set math.mat(delim: "[")
 
 #import "@preview/statementsp:0.1.1": *
@@ -175,7 +178,7 @@
 #title
 #author
 
-このノートは松村可換環論第11章「完備局所環の応用」の内容をまとめたものである．
+このノートは松村可換環論 @main の第11章「完備局所環の応用」の内容をまとめたものである．
 
 #figure(
   image("hideyuki-matsumura.jpg", width: 25em),
@@ -217,7 +220,7 @@
 	node((1, -2), [$"formally catenary"$])
 	node((3, -2), [$"equidimensional"$])
 	node((2, -3), [$"catenary"$])
-	node((4, 1), [#link("https://arxiv.org/pdf/2506.17987")[#arxiv-icon() new!]])
+	node((4, 1), [new! @miyazaki])
 	edge((3, 5), (3, 4), "=>")
 	edge((3, 4), (3, 3), "=>")
 	edge((3, 3), (3, 2), "=>")
@@ -326,7 +329,7 @@ catenaryの場合は，この有限個というのが0個を意味すること�
   box-name: "def",
   number: false
 )[
-  $dim(A) < infinity$なる環$A$に対して，すべての極小素イデアル$frak(p)$が$dim(A\/frak(p)) = dim(A)$をみたすとき，$A$はequidimensionalであるという．
+  $dim(A) < infinity$なる環$A$に対して，すべての極小素イデアル$frak(p)$が$dim(A\/frak(p)) = dim(A)$をみたすとき，$A$は*equidimensional*であるという．
 ]
 
 次の補題 2も使っていない気がするので省略する．
@@ -364,7 +367,7 @@ catenaryの場合は，この有限個というのが0個を意味すること�
   box-name: "def",
   number: false
 )[
-  ネーター局所環$A$において，完備化$A^*$がequidimensionalならば，$A$はquasi-unmixedであるという．
+  ネーター局所環$A$において，完備化$A^*$がequidimensionalならば，$A$は*quasi-unmixed*であるという．
 ]
 
 ちなみにquasi-unmixedは別名formally equidimensionalである．この名称からしてunmixedならばquasi-unmixedであることが期待される．unmixedというのはCM環であることと同値なので（定理 17.6）CM環はquasi-unmixedか？という話である．CM環は完備化してもCM環なので，CM環がequidimensionalであることを示せれば，unmixedならばquasi-unmixedであることが従う．これは定理 17.3の(i)で述べられている．
@@ -399,7 +402,7 @@ essentially of finite type over $A$とは，$A$上有限生成な可換環の局
   box-name: "def",
   number: false
 )[
-  ネーター局所環$A$に対して，すべての素イデアル$frak(p)$に対して$A\/frak(p)$がquasi-unmixedならば，$A$はformally catenaryであるという．
+  ネーター局所環$A$に対して，すべての素イデアル$frak(p)$に対して$A\/frak(p)$がquasi-unmixedならば，$A$は*formally catenary*であるという．
 ]
 
 formally catenaryならばuniversally catenaryであることは，次のようにして示せる．
@@ -436,3 +439,192 @@ formally catenaryならばuniversally catenaryであることは，次のよう�
 ]
 
 ここでいまいちど#link(<diagram>)[冒頭のヒエラルキー]に戻って鑑賞すると面白い．
+
+#pagebreak()
+
+= 形式的ファイバー
+本節では，geometrically regularやG-ring，Excellent ringの概念に触れる．これらは様々な可換環論的な性質が，可換環論的な操作において，ほどよく遺伝することが明らかになる．
+
+まず，一般に環準同型 $phi colon A -> B$ に対して， $Spec(phi) colon Spec(B) -> Spec(A)$ が誘導される．このとき，$frak(p) in Spec(A)$に対して，そのファイバー$Spec(phi)^(-1)(frak(p))$を考える．$Spec(phi)^(-1)(frak(p)) = Spec(C)$となるような環を構成できるだろうか？答えはYesであり，それは$C = B tensor_A kappa(frak(p))$である．ここで$kappa(frak(p)) = A_frak(p)\/frak(p)A_frak(p)$で剰余体である．この$C$をファイバー環という．\
+なぜ$C$をこのようにとるのか簡単に説明する．
+#becausebox[
+  次の同型変形ができる．ただし$S = phi(A \\ frak(p))$は$B$の積閉集合である．
+  $
+    C &= B tensor_A kappa(frak(p)) \
+      &= B tensor_A (A_frak(p)\/frak(p)A_frak(p)) \
+      &= S^(-1)B\/frak(p)S^(-1)B \
+      &= S^(-1)B \/ frak(p)S^(-1)B
+  $
+  ゆえに$P in Spec(C)$は$frak(p)S^(-1)B subset P$なる$S^(-1)B$の素イデアルに対応し，この$P$は$frak(p)B subset P$かつ$P inter S = emptyset$なる$B$の素イデアルに対応する．このような$B$の素イデアルは$A$に引き戻すと$frak(p) subset phi(P)$かつ$phi^(-1)(P) inter (A \\ frak(p)) = emptyset$となる．これを整理すると，$phi^(-1)(P) = frak(p)$となる．逆にこのような$B$の素イデアルは，逆をたどれば$C$の素イデアルに対応すると分かる．したがって，$Spec(C)$の素イデアルはちょうど$Spec(phi)^(-1)(frak(p))$なる素イデアルに対応する．上の同型はすべて対応するアフィンスキームの位相同型をも与えるので，$Spec(C) = Spec(phi)^(-1)(frak(p))$は位相同型でもある．
+]
+
+特に，ネーター局所環$(A,frak(m))$に対して完備化に関する自然な射$A -> A^*$のファイバー環のことを*形式的ファイバー*という．各素イデアルにおけるファイバー環がどうなっているかを調べることで，問題を分割することができるというイメージだろうか．
+
+#statementsp(
+  box-name: "def",
+  number: false
+)[
+  可換環に対する条件を$PP$と書くことにする．例えば$PP$:regular，CM, Gorenstein, reducedなど． \ 
+  ネーター環$A$と$k subset A$: 部分体に対して，任意の有限次拡大$k'\/k$に対しても$A tensor_k k'$が，$PP$を持つとき，$A$は$k$上に*geometrically $PP$*であるという． 例えば$PP = $regularのとき，$A$は$k$上に*geometrically regular*であるという．
+]
+
+ちなみに，このとき$A tensor_k k' = A tensor_k k[alpha_1, dots, alpha_n] = A[alpha_1, dots, alpha_n]$なので，$A tensor_k k'$はネーター環である．また，$k'=k$としてもいいのだから，$A$において geometrically $PP$ならば$PP$である．
+
+このノートでは，geometrically regularに注目する．geometrically reducedものちに紹介する西村純一の結果@nishimura の中に出てくる．西村純一は松村可換環論のKrull環の節の最後にも結果が残されている．
+
+#statementsp(
+  box-name: "prop",
+  number: false
+)[
+  $k subset A$をネーター環とその部分体とする．次は同値である．
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$A$は$k$上にgeometrically regularである．],
+    enum.item(2)[$forall frak(p) in Spec(A)$に対して，$A_frak(p)$は$k$上にgeometrically regularである．],
+    enum.item(3)[$forall frak(m) in Max(A)$に対して，$A_frak(m)$は$k$上にgeometrically regularである．]
+  )
+  ただし，$k -> A -> A_frak(p)$という標準的な射によって$k$を$A_frak(p)$の部分体とみなす．
+]
+#pfsp[
+  (i) $==>$ (ii): $k'\/k$を任意の有限次拡大とする．
+  $
+    A_frak(p) tensor k' = A_frak(p) tensor_A A tensor_k k' = A_frak(p) tensor_A (A tensor_k k')
+  $
+  であり，正則環の局所化で表せるので$A_frak(p) tensor k'$も正則．\ 
+  (ii) $==>$ (iii): 自明．\
+  (iii) $==>$ (i): $A -> A tensor_k k' = A[alpha_1, dots, alpha_n]$は整拡大である．よって任意の$frak(n) in Max(A tensor_k k')$に対して$frak(m) = frak(n) inter A in Max(A)$である．ここで$exists t in (A \\ frak(m)) inter frak(n)$とすると，$frak(m)(A tensor_k k') subset frak(n)$なので矛盾する．ゆえに$frak(n)$は$A_frak(m) tensor_A A tensor_k k'$の素イデアルと対応する．$A_frak(m) tensor_A A tensor_k k' = A_frak(m) tensor_k k'$は正則環なので，その局所化である$(A tensor_k k')_frak(n)$も正則である．$frak(n)$は任意だったから，$A tensor_k k'$は正則である．
+]
+
+次に射に対するregularityの概念などを導入し，G-ringの定義を行う．
+
+#statementsp(
+  box-name: "def",
+  number: false
+)[
+  $phi colon A -> B$をネーター環の射とする．また，環に対する条件$PP$を考える． 
+
+  $phi$が$PP$であるとは，任意の$frak(p) in Spec(A)$に対して，$B tensor_A kappa(frak(p))$が体$kappa(frak(p))$上にgeometrically $PP$であるときを言う．特に，$PP = $regularのとき，$phi$は*regular*であるという．
+
+  $A$が*G-ring*であるとは，任意の$frak(p) in Spec(A)$に対して，完備化の射$A_frak(p) -> A_frak(p)^*$がregularであるときを言う．
+]
+
+複雑でわかりにくいので，射がregularであることの定義をまとめてみると次のようになる．
+
+ネーター環の射$A -> B$がregularであるとは，任意の素イデアル$frak(p) in Spec(A)$と，任意の有限次拡大$k'\/kappa(frak(p))$に対して，$B tensor_A k'$が regularであることを言う．
+
+今述べた形で理解する．
+
+ところで，geometrically regularや射のregularityは，schemeのレベルで定義される．これによればスキームの射がsmoothならばregularである．@stacks-project[07R9]
+
+さて，#linksp(<th:32.1>)を示すときに@main では定理 23.7を用いるとある．しかしこれはネーター局所環に対する定理であり，局所環を外した場合に成立するかはわからない．そこで次の補題を用意し，，これを使って#linksp(<th:32.1>)を示す．\ 
+ちなみに次の補題はlinksp(<th:32.2>)における正則環に関する主張の一般化でもある．
+
+#v(1em)
+
+#statementsp(
+  box-name: "lem",
+  box-title: "",
+  box-label: "",
+  number: false
+)[
+  $phi colon A -> B$がregularとする．このとき，$A$がregularならば$B$もregularである．
+]
+#pfsp[
+  $forall P in Spec(B)$をとり，$B_P$が正則なことを示せばいい．$frak(p) = P inter A$として，$tilde(phi) colon A_frak(p) -> B_P$というflatな局所環の射が誘導されることが簡単な普遍性の議論などによってわかる．この$tilde(phi)$もregularであることを示す．$frak(q) in Spec(A_frak(p))$を任意にとって$K\/kappa(frak(q))$を任意の有限次拡大とする．$S = B \\ P$とすれば
+  $
+    B_P tensor_(A_frak(p)) K &= S^(-1)(B_frak(p)) tensor_(A_frak(p)) K \
+      &= (S^(-1)B)_frak(p) tensor_(A_frak(p)) K \
+      &= S^(-1)(B tensor_A K) \ 
+      &= S^(-1)B tensor_A A_frak(p) tensor_(A_frak(p)) K \
+      &= S^(-1)B tensor_A K \
+      &= S^(-1)B tensor_B (B tensor_A K)
+  $
+  となるが，$phi$はregularなので$B tensor_A K$は正則であり，正則間の局所化だから$B_P tensor_(A_frak(p)) K$も正則である．ゆえに$tilde(phi)$はregularである．したがって，主張はネーター局所環の射である場合に示せばいい．すると，いま，$phi colon A -> B$はflatでAが正則，さらに（$frak(m)$を$A$の極大イデアルとして）$B\/frak(m)B = B tensor_A A\/frak(m) = B tensor_A kappa(frak(m))$より，これは$phi$の正則性によって正則環．ゆえに定理 23.7から$B$も正則である．
+]
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "32.1",
+  number: true
+)[
+  $A stretch(-->)^(phi) B stretch(-->)^(psi) C$をネーター環の射とする．
+
+  #enum(
+    numbering: "i)",
+    enum.item(1)[もし$phi$と$psi$がregularならば，$psi compose phi$もregularである．],
+    enum.item(2)[もし$psi compose phi$がregularで，かつ$psi$がfaithfully flatならば，$phi$もregularである．]
+  )
+]
+#pfsp[
+  (i) めんどくさいので補足にとどめる．最後に$phi_L colon B_L -> C_L$という正則な射で$B_L$が正則環であることがわかる．ここで前の補題を用いて$C_L$が正則なことを示すことで証明が終了する．\ 
+  (ii) $phi$がflatなのは@main の3章の初めの方に書いてあることを用いればよい．$forall frak(p) in Spec(A)$をとり，$L\/kappa(frak(p))$を有限次拡大とする．$B_L = B tensor_A L$が正則なことを示す．$C_L = C tensor_A L$は仮定から正則となり，$B_L -> C_L$はfaithfully flatなので，$B_L$も正則である．
+]
+
+最後に用いた，$A -> B$がfaithfully flatで$B$が正則ならば$A$も正則であるという事実を一応示しておく．
+
+#becausebox[
+  $forall frak(p) in Spec(A)$をとり，$A_frak(p)$が正則であることを示せばいい．忠実平坦性から，とある$P in Spec(B)$をとって$P inter A = frak(p)$となる．ゆえに$A_frak(p) -> B_P$という平坦な局所環の射が誘導される．これは局所環の射なので忠実平坦でもある．ゆえに，もとから局所環の射だったとしてよい．$gldim(A) < infinity$を示せばいい．任意の$A$加群$M$をとる．
+  $
+    dots.c --> P_1 --> P_0 --> M --> 0
+  $
+  を，$M$の射影分解とする．$P$たちは局所環$A$上の射影加群だから自由加群である．これに$tensor_A B$をすると，忠実平坦性と$P$が自由加群であることから
+  $
+    dots.c --> P_1 tensor_A B --> P_0 tensor_A B --> M tensor_A B --> 0
+  $
+  は$M tensor_A B$の射影分解になる．$B$は正則局所環なので$gldim(B) < infinity$である．したがって，十分大きい任意の$i$に対して$P_i tensor_A B = 0$である．忠実平坦性から$P_i = 0$である．ゆえに射影分解は有限であったから$"proj.dim"(M) < infinity$であり，ゆえに$gldim(A) < infinity$である．
+]
+
+Serreの定理はすごい．
+
+忠実平坦やregularな射を仮定すると，正則関係の環（正則環，CM環など）に対して良い性質が伝播することがわかる．
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "32.2",
+  number: true
+)[
+  $phi colon A -> B$をネーター環の射で，忠実平坦かつregularであるとする．
+
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$A$が正則環（またはreduced, Gorenstein, CTR, CM環）であることと，$B$が同じ性質を持つことは同値である．],
+    enum.item(2)[$B$がG-ringならば，$A$もG-ringである．(逆は成立しない．)]
+  )
+]
+#pfsp[
+  (i) CTR環以外については，@main の§23の定理などからわかる．CTR環について示す．局所環の射に帰着できる．@miyazaki[Proposition 3.5]によって$B$がCTRならば$A$もCTRである．逆に$A$がCTRならば，同じく@miyazaki[Proposition 3.5]によって，$forall frak(p) in min{tr_R (omega_R)}$に対して$kappa(frak(p)) tensor_A B$がreducedなことを示せばいい．しかし，$phi$はregularなので，$kappa(frak(p)) tensor_A B$はregularであり，特にreducedである．\
+  (ii) $forall frak(p) in Spec(A)$に対して$A_frak(p) -> (A_frak(p))^*$がregularなことを示す．$frak(p)$の上にある$B$の素イデアルを$P$とする．すると，次の可換図式が得られる．
+  #align(center, diagram({
+	node((-1, -1), [$(A_frak(p))^*$])
+	node((-1, 0), [$A_frak(p)$])
+	node((0, 0), [$B_P$])
+	node((0, -1), [$(B_P)^*$])
+	edge((-1, 0), (-1, -1), [$alpha$], label-side: left, "->")
+	edge((-1, 0), (0, 0), [$f$], label-side: left, "->")
+	edge((0, 0), (0, -1), [$beta$], label-side: right, "->")
+	edge((-1, -1), (0, -1), [$f^*$], label-side: left, "->")
+  }))
+  図式のソースは#link("https://q.uiver.app/#r=typst&q=WzAsNCxbMCwwLCIoQV9mcmFrKHApKV4qIl0sWzAsMSwiQV9mcmFrKHApIl0sWzEsMSwiQl9QIl0sWzEsMCwiKEJfUCleKiJdLFsxLDAsImFscGhhIl0sWzEsMiwiZiJdLFsyLDMsImJldGEiLDJdLFswLDMsImZeKiJdXQ==")[こちら]．あとは#linksp(<th:32.1>)によって$alpha$がregularなことがわかる．
+]
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "32.3",
+  number: true
+)[
+  完備ネーター局所環はG-ringである．
+]
+#pfsp[
+  omit
+]
+
+
+
+#pagebreak()
+
+#bibliography(
+  "ref.bib"
+)
