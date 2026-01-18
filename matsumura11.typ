@@ -109,6 +109,8 @@
 #let coht = "coht" 
 #let tensor = $times.o$
 #let gldim = "gl.dim"
+#let Der = "Der"
+#let Reg = "Reg"
 #set math.mat(delim: "[")
 
 #import "@preview/statementsp:0.1.1": *
@@ -517,7 +519,7 @@ formally catenaryならばuniversally catenaryであることは，次のよう�
 ところで，geometrically regularや射のregularityは，schemeのレベルで定義される．これによればスキームの射がsmoothならばregularである．@stacks-project[07R9]
 
 さて，#linksp(<th:32.1>)を示すときに@main では定理 23.7を用いるとある．しかしこれはネーター局所環に対する定理であり，局所環を外した場合に成立するかはわからない．そこで次の補題を用意し，，これを使って#linksp(<th:32.1>)を示す．\ 
-ちなみに次の補題はlinksp(<th:32.2>)における正則環に関する主張の一般化でもある．
+ちなみに次の補題は#linksp(<th:32.2>)における正則環に関する主張の一般化でもある．
 
 #v(1em)
 
@@ -621,7 +623,130 @@ Serreの定理はすごい．
   omit
 ]
 
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "32.4",
+  number: true
+)[
+  $A$をネーター環とする．$A$のすべての極大イデアル$frak(m)$に対して$A_frak(m) -> (A_frak(m))^*$がregularならば，$A$はG-ringである．
+]
+#pfsp[
+  #linksp(<th:32.3>)により，$(A_frak(m))^*$はG-ringである．#linksp(<th:32.2>) (ii)より，$A_frak(m)$もG-ringである．任意の素イデアル$frak(p)$に対して，とある極大イデアル$frak(m) supset frak(p)$が存在するから，$A$はG-ringであることの定義を満たす．
+]
 
+次の二つは，環がG-ringであることの判定に使える．
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "32.5",
+  number: true
+)[
+  $A$をネーター環とする．次は同値である．
+
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$A$はG-ringである．],
+    enum.item(2)[$C$を有限$A$-代数で整域であるとし，$frak(m)$を$C$の極大イデアルとする．$B=C_frak(m), Q in Spec(B^*), Q inter B = 0$ならば$(B^*)_Q$は正則局所環である．]
+  )
+]
+#pfsp[
+  omit
+]
+
+#statementsp(
+  box-name: "th",
+  box-title: "水谷 博之",
+  box-label: "32.6",
+  number: true
+)[
+  $R$を正則とする．$forall n >= 0$に対して，$R[x_1,dots,x_n]$で(WJ)が成立すれば，$R$はG-ringである．
+]
+#pfsp[
+  omit
+]
+
+最後の(WJ)について説明しよう．これはWeak Jacobian condition の略であり，正則環$R$に関する次の条件を言う．
+
+(WJ): 任意の素イデアル$P in Spec(R)$で$ht(P) = r$なるものに対して，$D_1,dots, D_r in Der(R), f_1,dots, f_r in P$が存在して，$det(D_i (f_j)) in.not P$となる．
+
+$Der(R)$は$R$からそれ自身へのderivation全体である．微分作用素みたいなもの．ちなみにこのとき，$R_p$は$dim(R_P) = r$なる正則局所環だが，$f_1, dots, f_r$は，その正則巴系である．(定理 30.4)
+
+これらと§30の話をまとめることで，次の系を得る．
+
+#statementsp(
+  box-name: "cor",
+  box-title: "",
+  number: false
+)[
+  体上有限生成代数，本質的に有限生成代数な環はG-ringである．
+]
+#pfsp[
+  omit
+]
+
+$k[x_1, dots, x_n]$に対して(WJ)が成立することについて触れてみよう．例えば極大イデアル$frak(m) = (x_1, dots, x_n)$と，$(partial)/(partial x_1), dots, (partial)/(partial x_n) in Der(k[x_1, dots, x_n])$と，$x_1, dots, x_n in frak(m)$に対して
+$
+  det((partial)/(partial x_i)(x_j)) = 1 in.not frak(m)
+$
+となり，たしかに$frak(m)$においては(WJ)が成立する．$k[x_1, dots, x_n]$に対して(WJ)が成立していることをいうためには，初めの素イデアル$frak(m)$を様々取り換えていかなければならない．これをやっているのが§30なのである．
+
+ところで，#linksp(<th:32.6>)にはタイトルとして水谷 博之をあげている．彼について調べてみたが，論文が一本あるのみ@mizutani で，他の情報がほぼない．これほど立派な戦績を挙げていて消息不明なのは不思議である．
+
+上の系は，実はそれより強いことが成り立つ．
+
+#statementsp(
+  box-name: "th",
+  box-title: "Grothendieck",
+  box-label: "32.7",
+  number: true
+)[
+  $A$がG-ringならば，その上の一変数多項式環$A[x]$もG-ringである．
+]
+#pfsp[
+  omit
+]
+
+証明は@matsumuracomalg[Theorem 77]にあるが，かなり難しい．(到達するまでの準備が長そう．)
+
+G-ringの準同型像や局所化はG-ringであるので，これによってG-ring $A$上の有限生成代数，本質的に有限生成代数もG-ringであることが従う．
+
+さて，#linksp(<th:32.7>)と類似の定理がべき級数でも成り立つかが気になる．すなわち，$A$がG-ringならば，$A[[x]]$もG-ringであるか？である．なんとこれは一般には成立しない．
+
+1979年，Rotthausによって$A$が半局所環であるようなG-ringならば$A[[x]]$もG-ringであることを示した．@rotthaus \
+1980年，松村可換環論初版出版．松村英之は著書の中で上述のRotthausの結果を紹介し，$A$が一般の場合も正しいのではないかと綴った．\ 
+1981年，西村純一が$A$が一般の場合には反例があることを報告．@nishimura[5.~Example]
+
+という流れのようである．西村が論文を提出したのはもう少し前なので，松村が初版を書いているときに，西村が反例を絶賛構成中であった可能性もある．ずいぶんタイムリーな話題だったのだろう．
+
+西村の反例について，詳しくは元論文を見ていただきたいが，大雑把に説明する．まず西村はとある1次元ネーター整域$R$であってG-ringであるものを構成する．#linksp(<th:32.7>)によって一変数多項式環$R[t]$もG-ringである．しかし，これをイデアル$I = t R$で完備化して$R[[t]]$をとると，それまでに述べた定理から$R[[t]]$がN-ringではありえないことを述べる．ここに，N-ringとは，任意の素イデアル$frak(p)$に対して，完備化の射$A_frak(p) -> A_frak(p)^*$がreducedであることをいう．（G-ringのreduced バージョン．）regular ならば reduced なので，G-ringならばN-ringである．ゆえに，$R[[t]]$はG-ringではないことがわかる．
+
+これより，西村の反例はG-ringの完備化がG-ringであるとは限らないことも与えている．
+
+さて，§24に書いてあるが，以下について考える．
+
+$PP$を局所環に対する条件とする．例えば，$PP$ = regular, CM, Gorenstein, reduced など．環$A$に対して$PP(A) = {frak(p) in Spec(A) mid(|) A_frak(p) #text[は] PP #text[を満たす]}$とおく．$PP$が正則局所環を表すときは特に，これを$Reg(A)$とかく．
+
+#statementsp(
+  box-name: "def",
+  box-title: "",
+  box-label: "",
+  number: false
+)[
+  ネーター環$A$が次の三つを満たすとき，$A$は*Excellent ring*であるという．
+
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$A$はuniversally catenaryである．],
+    enum.item(2)[$A$はG-ringである．],
+    enum.item(3)[すべての有限$A$-代数$B$に対して，$Reg(B)$は$Spec(B)$の開集合である．]
+  )
+]
+
+後ろの二つだけを満たすならば，$A$は*quasi-excellent ring*であるという．これらの条件はどれも局所化，有限生成代数をとる操作で閉じている．多分局所環ならばべき級数や完備化をとっても許されると思う．
+
+応用上，考えつくような環は上の三つをたいてい満たしているので，冒頭に述べた「様々な可換環論的な性質が，可換環論的な操作において，ほどよく遺伝する」というのはそういうことだ．
 
 #pagebreak()
 
