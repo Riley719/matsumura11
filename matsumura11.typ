@@ -748,6 +748,146 @@ $PP$を局所環に対する条件とする．例えば，$PP$ = regular, CM, Go
 
 応用上，考えつくような環は上の三つをたいてい満たしているので，冒頭に述べた「様々な可換環論的な性質が，可換環論的な操作において，ほどよく遺伝する」というのはそういうことだ．
 
+そもそもExcellent ringの定義はGrothendieckが導入したものと思われる．@Grothendieck1965[7.8.2] 導入の動機は，広中による特異点解消の証明が発端だろう．広中は標数0の体k上の代数的scheme Xに対して，その特異点解消$tilde(X)$が存在することを示した．@hironaka1[MAIN THEOREM I] 続く@hironaka2 でも証明が述べられるが，特異点解消の舞台となるschemeは，標数0の体k上の代数的schemeである．Grothendieckは，この手法がまわるには標数0の体上のExcellent scheme にまで拡張できることを述べた．そして当然，Excellent schemeはExcellent ring の張り合わせである．これがExcellent ring の初出だろう．
+
+ちなみに，正標数，混標数の場合の特異点解消は2026年1月現在，一般の場合は未解決問題である．(部分的な解決はある．) 一般の場合で解決できたらすごい．フィールズ賞ものと思う．
+
+#pagebreak()
+
+= Kunz の定理
+最後に，Kunzの定理を示す．
+
+#statementsp(
+  box-name: "def",
+  box-title: "",
+  box-label: "",
+  number: false
+)[
+  $A$を環，$x_1, dots, x_n in A$とする．$x_1, dots, x_n$がLech 独立であるとは
+  $
+    sum_(i=1)^(infinity) a_i x_i = 0 ==> forall a_i in (x_1, dots, x_n)
+  $
+  が成立することをいう．
+]
+これは定理 19.9の後にすでに出てきた概念である．
+
+#statementsp(
+  box-name: "lem",
+  box-title: "補題1",
+  box-label: "",
+  number: false
+)[
+  $x_1^nu_1, dots, x_n^nu_n$がLech 独立ならば，$1 <= forall alpha_i <= nu_i$について$x_1^{alpha_1}, dots, x_n^{alpha_n}$もLech 独立である．
+]
+#pfsp[
+  $1 < nu_1$のときに$x_1^(nu_1 -1), dots, x_2^nu_2, dots, x_n^nu_n$もLech 独立であることを示せば十分である．
+  $
+    a_1 x_1^(nu_1 -1) + a_2 x_2^nu_2 + dots + a_n x_n^nu_n = 0
+  $
+  として，両辺に$x_1$をかけると
+  $
+    a_1 x_1^nu_1 + a_2 x_1 x_2^nu_2 + dots + a_n x_1 x_n^nu_n = 0
+  $
+  ゆえに$a_1, a_2 x_1, dots, a_n x_1 in (x_1^nu_1, dots, x_n^nu_n)$である．
+  $
+    a_2 x_1 = b_1 x_1^nu_1 + b_2 x_2^nu_2 + dots + b_n x_n^nu_n
+  $
+  として$x^(nu_1 - 1)$をかけて整理すると
+  $
+    (b_1 x_1^(nu_1 -1) - a_2) x_1^nu_1 + b_2 x_1^(nu_1 -1) x_2^nu_2 + dots + b_n x_1^(nu_1 -1) x_n^nu_n = 0
+  $
+  ゆえに$b_1 x_1^(nu_1 -1) - a_2 in (x_1^nu_1, dots, x_n^nu_n)$である．したがって$a_2 in (x_1^(nu_1 - 1), dots, x_n^nu_n)$である．$a_3, dots, a_n$についても同様．
+]
+
+#statementsp(
+  box-name: "lem",
+  box-title: "補題2",
+  box-label: "",
+  number: false
+)[
+  $(A, frak(m), k)$を局所環とする．$frak(m) = (x_1, dots, x_n)$として$nu_i > 0 quad (1 <= i <= n)$について$x_1^nu_1, dots, x_n^nu_n$が独立ならば
+  $
+    l_A (A\/(x_1^nu_1, dots, x_n^nu_n)) = nu_1 dot nu_2 dots.c nu_n
+  $
+  である．ただし，$l_A$は$A$加群としての長さを表す．
+]
+#pfsp[
+  @main の証明だとなんかよくわからないが，$n$に関する帰納法と，一般にイデアルの列$I_n subset dots.c subset I_1 subset I_0 = A quad (n>=1)$について，次の完全列を帰納的に使って
+  $
+    0 --> I_(k-1)\/I_k --> A\/I_k --> A\/I_(k-1) --> 0 quad (1 <= k <= n)
+  $
+  $
+    l_A (A\/I_n) &= l_A (A\/I_(n-1)) + l_A (I_(n-1)\/I_n) \
+    &= dots.c \
+    &= sum_(k=0)^(n-1) l_A (I_k\/I_(k+1))
+  $
+  となることを用いるなどすればいい．この際，$A\/frak(m)$:体は$A$加群として$0$でない単純加群であり，したがって$l_A (A\/frak(m)) = 1$であることを用いるかもしれない．
+]
+
+$p$を素数として$A$を標数$p$である局所環とする．このとき次のFrobenius 環準同型が定まる．
+$
+  F colon A -> A, a mapsto a^p
+$
+これの$e$回合成を単に$F^e$と書く．$F^e (A)$はこの写像による$A$の像であるような環で，$A$の部分環である．もし$A$がreducedなら，この写像によって$A cong F^e (A)$である．
+
+さて，Frobenius 環準同型のふるまいによって正標数の局所環の正則性を特徴づけることができる．これがKunzの定理である．
+
+#statementsp(
+  box-name: "th",
+  box-title: "Kunz",
+  box-label: "33.1",
+  number: true
+)[
+  $A$を標数$p > 0$であるネーター局所環とする．次は同値である．
+
+  #enum(
+    numbering: "i)",
+    enum.item(1)[$A$は正則である．],
+    enum.item(2)[$A$はreducedで，$forall e >= 1$に対して，$A$は$F^e (A)$上平坦である．],
+    enum.item(3)[$A$はreducedで，$exists e >= 1$に対して，$A$は$F^e (A)$上平坦である．]
+  )
+]
+
+@main とは少し違う証明をする．@stacks-project[0EC0] にも同様の証明がある．
+
+#pfsp[
+  $frak(m)$を$A$の極大イデアルとする．\
+  (i) $==>$ (ii): $A$がreducedなのはよい．定理 23.1を用いる．$F^e colon A --> F^e (A)$において，$A$はregularで$F^e (A)$もregukarで特にCMである．さらに$F^e (A)\/F^e (frak(m))$は体なので$dim(A) = dim(F^e (A)) + dim(F^e (A)\/F^e (frak(m)))$が成立する．ゆえに定理 23.1から$A$は$F^e (A)$上平坦である．\
+  (ii) $==>$ (iii): 自明．\
+  (iii) $==>$ (i): $l_A (A\/(x_1^q, dots, x_r^q)) = q^r$を示すまでは@main と同じ．(Notationも@main と同じ．) \ 
+  まず，$n$を十分に大きい任意の自然数とする．$chi(n) = l_A (A\/frak(m^n))$とおく．Krull の次元定理からこれは多項式であり，次数は$dim(A)$である．$r = dim(A)$が示せれば，$A$が正則局所環であるとわかる．$n$は十分大きいので
+  $
+    frak(m)^(q n + q r) subset F^e (frak(m)^n) A subset frak(m)^(q n)
+  $
+  が成立し，
+  $
+    A\/frak(m)^(q n + q r) ->> A\/F^e (frak(m)^n) A ->> A\/frak(m)^(q n)
+  $
+  である．一方で
+  $
+    A\/F^e (frak(m)^n) A cong (F^e (A)\/F^e (frak(m)^n)) tensor_(F^e (A)) A
+  $
+  であり，$A$は$F^e (A)$上平坦なので
+  $
+    l_A (A\/F^e (frak(m)^n) A) &= l_(F^e (A)) (F^e (A)\/F^e (frak(m)^n)) dot l_A (A\/F^e (frak(m))A) \
+    &= l_A (A\/frak(m)^n) dot l_A (A\/F^e (frak(m))A) \
+    &= chi(n) dot q^r
+  $
+  と計算できる．ただし計算に@stacks-project[02M1] を用いた．これらより次を得る．
+  $
+    chi(q n + q r) >= chi(n) dot q^r >= chi(q n)
+  $
+  ここで$chi(n)$の最高次係数を$C$とおくと
+  $
+    C (q n)^(dim(A)) + dots.c >= C n^(dim(A)) dot q^r >= C (q n + q r)^(dim(A)) + dots.c
+  $
+  すべてを$(q n)^(dim(A))$で割って$n -> infinity$とすると
+  $
+    q^r/q^dim(A) = 1
+  $
+  を得る．ゆえに$r = dim(A)$であり，$A$は正則局所環である．
+]
+
 #pagebreak()
 
 #bibliography(
