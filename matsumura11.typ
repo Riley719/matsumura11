@@ -194,7 +194,7 @@
   fill: text(fill: black)[#repeat([$dot$], gap: 0.1em)]
 )
 #text(font: ("CMU Serif", "Harano Aji Mincho"), size: 2em, weight: "black")[目次#label("outline")]
-#columns(3, gutter: 0em)[
+#columns(2, gutter: 0em)[
   #outline(title: none, indent: 2em)
 ]
 
@@ -887,6 +887,38 @@ $
   $
   を得る．ゆえに$r = dim(A)$であり，$A$は正則局所環である．
 ]
+
+#statementsp(
+  box-name: "th",
+  box-title: "",
+  box-label: "33.2",
+  number: true
+)[
+  $A$を標数$p > 0$であるネーター局所環とする．$A$が$F(A)$上に有限なら，$A$はG-ringである．
+]
+#pfsp[
+  omit
+]
+
+Frobenius準同型によって$A$が$F(A)$上に有限であることをF-finiteという．どうやら#linksp(<th:33.2>)を満たすような$A$は，より強くExcellent ringであるらしい．@main
+
+#pagebreak()
+
+= その他の備忘録
+数学的なところやそうでない部分も含め，いくつか備忘録としてお役立ち情報を記す．
+
+== 松村可換環論について
+@main はとてもいい本だが，ところどころ議論に誤りがあったり，中には主張が間違っているものもあるらしい．@maineng は松村の英語版であるが，こちらの方が誤りが直っている印象がある．
+
+また，Matlisの双対定理が載っているのだが局所コホモロジーについては定義すらない．Local Dualityなども載っていないので，こちらはHunekeのLecture Note @huneke がおすすめ．
+
+== 松村先生の時代
+1960年代周辺のこの分野，可換代数や代数幾何学の発展は目覚ましい．このあたりの歴史や流れを把握することは，元来のこの分野の目標や，数学に対する過去の学者の意志を継ぐためにも重要であると思われる．読み物にはなるが，広中先生によるこの本はおすすめ．@hakkenn Serre, Mumford, Zariski, Grothendieck, 永田，松村，広中，岡などなど，この分野の大御所がたくさん出てきて面白い．
+
+== このPDFについて
+このPDFは#link("https://typst.app/")[Typst]で記述されている．GitHubにソースコードを置いてあるので，技術を盗んでたくさん創作してほしい．可換図式は#link("https://q.uiver.app/")[quiver]で作成し，Typst側の#link("https://typst.app/universe/package/fletcher/")[fletcher]パッケージで読み込んでいる．
+
+Typstはまだまだ未熟だが，LaTeXよりも開始難易度が低く，コンパイル速度は1秒もかからない．Typstで論文を書く人が増えるといいなと思う．
 
 #pagebreak()
 
