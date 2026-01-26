@@ -920,6 +920,11 @@ Frobenius準同型によって$A$が$F(A)$上に有限であることをF-finite
 
 Typstはまだまだ未熟だが，LaTeXよりも開始難易度が低く，コンパイル速度は1秒もかからない．Typstで論文を書く人が増えるといいなと思う．
 
+#figure(
+  image("ToGitHub-QR.png"),
+  caption: [GitHubのソースコードへのQRコード．]
+)
+
 #pagebreak()
 
 #bibliography(
